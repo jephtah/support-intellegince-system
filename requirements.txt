@@ -1,0 +1,17 @@
+fastapi==0.115.0
+uvicorn[standard]==0.24.0
+python-dotenv==1.0.0
+httpx==0.25.2
+psycopg2-binary==2.9.10
+python-multipart==0.0.19
+pytest==7.4.0
+pytest-asyncio==0.21.0
+openai==1.65.0
+pydantic==2.10.6
+pydantic-settings==2.10.0
+datasets==2.14.1
+alembic==1.13.0
+sqlalchemy==2.0.39
+
+
+
