@@ -2,39 +2,88 @@
 
 AI-powered support ticket classification API built with FastAPI.
 
-## Setup
+## Quick Start
 
-```bash
-# install deps
-pip install -r requirements.txt
+### Prerequisites
+- Python 3.11+
+- PostgreSQL (or use Docker)
 
-# setup env
-cp .env.example .env
-# edit .env with your settings
-
-# run
-uvicorn app.main:app --reload
-```
-
-## Docker
-
+### Option 1: Docker (Recommended)
 ```bash
 docker-compose up --build
 ```
 
-## API
+### Option 2: Local Setup
+```bash
+# Install dependencies
+pip install -r requirements.txt
 
-- POST `/api/v1/requests` - create ticket
-- GET `/api/v1/requests/{id}` - get ticket  
-- GET `/api/v1/requests` - list tickets
-- GET `/api/v1/stats` - get stats
+# Setup environment
+cp .env.example .env
+# Edit .env with your database settings
 
-Docs at `/docs` when running.
+# Run migrations
+alembic upgrade head
 
-## Notes
+# Optional: Seed with sample data
+python scripts/seed_db.py
 
-- uses openai for classification (fallback to rules if no key)
-- stores tickets in postgres
-- basic auth/security for prod
-- TODO: add docker health checks
-- TODO: add deployment scripts
+# Start server
+uvicorn app.main:app --reload
+```
+
+The API will be available at http://localhost:8000
+API docs: http://localhost:8000/docs
+
+
+
+## API Endpoints
+
+- `POST /api/v1/requests` - Create support ticket
+- `GET /api/v1/requests/{id}` - Get specific ticket
+- `GET /api/v1/requests` - List all tickets (with optional filters)
+- `GET /api/v1/stats` - Get ticket statistics
+
+## Development
+
+
+### Commands
+
+```bash
+# Run tests
+pytest
+
+# Database migrations
+alembic upgrade head
+
+# Seed database
+python scripts/seed_db.py
+
+# Code formatting
+black app/ tests/
+```
+
+### Example Usage
+
+```bash
+# Create a ticket
+curl -X POST "http://localhost:8000/api/v1/requests" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "The app crashes on startup"}'
+
+# Get all tickets
+curl "http://localhost:8000/api/v1/requests"
+```
+
+## Testing
+
+```bash
+pytest
+```
+
+## Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | PostgreSQL connection string | Yes |
+| `OPENAI_API_KEY` | OpenAI API key for classification | No |
