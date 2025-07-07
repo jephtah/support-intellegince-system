@@ -105,4 +105,4 @@ pytest
 - **Type checking** - Could add mypy for better type safety
 - **API documentation** - Should validate the OpenAPI spec in CI
 
-The current implementation prioritizes functionality. I focused on getting a working MVP quickly. With real usage, I'd revisit these areas and maybe more.
+The current implementation prioritizes functionality. With real usage, I'd revisit these areas and maybe more.
